@@ -1,4 +1,18 @@
 <html>
-	<p>Merhaba!</p>
-	<p>Ben Erkan Ercan. Bu da şimdilik hiç bi işe yaramayan blogumun html dosyası.</p>
-<html>
+    <head>
+        <title>Erkan Ercan</title>
+    </head>
+    <body>
+			<div>
+	 			<h1><a href="/">Django Girls Blog</a></h1>
+				</div>
+
+					{% for post in posts %}
+						<div>
+							<p>published: {{ post.yayinlanma_tarihi }}</p>
+							<h1><a href="">{{ post.baslik }}</a></h1>
+							<p>{{ post.yazi|linebreaks }}</p>
+						</div>
+					{% endfor %}
+    </body>
+</html>
