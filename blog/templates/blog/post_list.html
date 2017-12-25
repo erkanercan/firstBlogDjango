@@ -2,6 +2,7 @@
 <html>
 
     <head>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <title>Django Girls blog</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
@@ -9,7 +10,13 @@
     </head>
     <body>
         <div>
-            <h1><a href="/">Django Girls Blog</a></h1>
+	{% if posts %}
+	There are {{ posts|length }} records:
+	{% else %}
+	There are no records.
+	{% endif %}
+	<p>{{post.yazi}}</p>
+            <h1><a href="/">Erkan Ercan Blog</a></h1>
         </div>
 
         {% for post in posts %}
@@ -20,9 +27,4 @@
             </div>
         {% endfor %}
     </body>
-<<<<<<< HEAD
-
 </html>
-=======
-</html>
->>>>>>> b89c1cd2ff3b7e536d4227c2a17081349783a467
