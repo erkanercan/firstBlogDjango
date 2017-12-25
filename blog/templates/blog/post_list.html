@@ -4,7 +4,7 @@
         {{ post.yayinlanma_tarihi }}
     </div>
     <h1>
-        <a href="">{{ post.baslik }}</a>
+        <a href="{% url 'post_detail' pk=post.pk %}">{{ post.baslik }}</a>
     </h1>
     <p>{{ post.yazi|linebreaks }}</p>
 </div>
