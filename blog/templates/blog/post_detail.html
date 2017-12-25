@@ -4,6 +4,8 @@
     <div class="date">
         {{ post.yayinlanma_tarihi }}
     </div>
+    {% else %}
+    <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %} ">Yayinla</a>
     {% endif %}
     <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
         <span class="glyphicon glyphicon-pencil"></span>
