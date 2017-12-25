@@ -25,7 +25,7 @@ SECRET_KEY = 't#jo*=^ubnkvo@=_#b*6_d^^pltdhzawqt+x4*#3te@aq@d1f#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['erkanercan.me','46.101.195.173']
+ALLOWED_HOSTS = ['http://erkanercan.me', '46.101.195.173']
 
 
 # Application definition
