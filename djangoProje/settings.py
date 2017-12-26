@@ -25,12 +25,12 @@ SECRET_KEY = 't#jo*=^ubnkvo@=_#b*6_d^^pltdhzawqt+x4*#3te@aq@d1f#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = ['http://erkanercan.me', '46.101.195.173']
-=======
+
+
+
 ALLOWED_HOSTS = ['erkanercan.me', '46.101.195.173']
 LOGIN_REDIRECT_URL = '/'
->>>>>>> 9d6200b46477b4c44ce6333333960a80e39b3060
+
 
 
 # Application definition
