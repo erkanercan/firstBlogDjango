@@ -18,3 +18,23 @@
     <p>{{ post.yazi|linebreaks }}</p>
 </div>
 {% endblock %}
+<a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Yorum eklemek ister misin?</a>
+
+<hr> {% for comment in post.comments.all %} {% if user.is_authenticated or comment.approved_comment %}
+<div class="comment">
+    <div class="date">
+        {{ comment.yaratilma_tarihi }} {% if not comment.approved_comment %}
+        <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}">
+            <span class="glyphicon glyphicon-ok"></span>
+        </a>
+        {% endif %}
+    </div>
+    <strong>{{ comment.yazar }}</strong>
+    <p>{{ comment.yazi|linebreaks }}</p>
+</div>
+{% endif %} {% empty %}
+<p>Henüz bir yorum yok :(</p>
+{% endfor %}

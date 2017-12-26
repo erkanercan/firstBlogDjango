@@ -17,6 +17,9 @@ class Post(models.Model):
     def __str__(self):
         return self.baslik
 
+    def approved_comments(self):
+        return self.comments.filter(approved_comment=True)
+
 
 class Comment(models.Model):
     post = models.ForeignKey(
