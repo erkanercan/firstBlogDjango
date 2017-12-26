@@ -19,7 +19,8 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey('blog.Post', related_name='comments')
+    post = models.ForeignKey(
+        'blog.Post', related_name='comments', on_delete=models.DO_NOTHING)
     yazar = models.CharField(max_length=200)
     yazi = models.TextField
     yaratilma_tarihi = models.DateTimeField(default=timezone.now())
