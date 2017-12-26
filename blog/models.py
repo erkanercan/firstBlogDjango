@@ -25,7 +25,7 @@ class Comment(models.Model):
     post = models.ForeignKey(
         'blog.Post', related_name='comments', on_delete=models.DO_NOTHING)
     yazar = models.CharField(max_length=200)
-    yazi = models.TextField()
+    yazi = models.TextField(default='Null')
     yaratilma_tarihi = models.DateTimeField(default=timezone.now())
     approved_comment = models.BooleanField(default=False)
 
