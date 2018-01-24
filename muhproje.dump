@@ -1,0 +1,1120 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.10
+-- Dumped by pg_dump version 9.5.10
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE auth_group OWNER TO projeuser;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_group_id_seq OWNER TO projeuser;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_group_permissions OWNER TO projeuser;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_group_permissions_id_seq OWNER TO projeuser;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE auth_permission OWNER TO projeuser;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_permission_id_seq OWNER TO projeuser;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE auth_user OWNER TO projeuser;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_user_groups OWNER TO projeuser;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_groups_id_seq OWNER TO projeuser;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_id_seq OWNER TO projeuser;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_user_user_permissions OWNER TO projeuser;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_user_permissions_id_seq OWNER TO projeuser;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: blog_comment; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE blog_comment (
+    id integer NOT NULL,
+    yazar character varying(200) NOT NULL,
+    yaratilma_tarihi timestamp with time zone NOT NULL,
+    approved_comment boolean NOT NULL,
+    post_id integer NOT NULL,
+    yazi text NOT NULL
+);
+
+
+ALTER TABLE blog_comment OWNER TO projeuser;
+
+--
+-- Name: blog_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE blog_comment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE blog_comment_id_seq OWNER TO projeuser;
+
+--
+-- Name: blog_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE blog_comment_id_seq OWNED BY blog_comment.id;
+
+
+--
+-- Name: blog_post; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE blog_post (
+    id integer NOT NULL,
+    baslik character varying(200) NOT NULL,
+    yazi text NOT NULL,
+    yaratilma_tarihi timestamp with time zone NOT NULL,
+    yayinlanma_tarihi timestamp with time zone,
+    yazar_id integer NOT NULL
+);
+
+
+ALTER TABLE blog_post OWNER TO projeuser;
+
+--
+-- Name: blog_post_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE blog_post_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE blog_post_id_seq OWNER TO projeuser;
+
+--
+-- Name: blog_post_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE blog_post_id_seq OWNED BY blog_post.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE django_admin_log OWNER TO projeuser;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_admin_log_id_seq OWNER TO projeuser;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE django_content_type OWNER TO projeuser;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_content_type_id_seq OWNER TO projeuser;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE django_migrations OWNER TO projeuser;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: projeuser
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_migrations_id_seq OWNER TO projeuser;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: projeuser
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: projeuser
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE django_session OWNER TO projeuser;
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY blog_comment ALTER COLUMN id SET DEFAULT nextval('blog_comment_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY blog_post ALTER COLUMN id SET DEFAULT nextval('blog_post_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add post	7	add_post
+20	Can change post	7	change_post
+21	Can delete post	7	delete_post
+22	Can add comment	8	add_comment
+23	Can change comment	8	change_comment
+24	Can delete comment	8	delete_comment
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 24, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$100000$d7nreoAAAK5Q$Jqp4vDkubJ1cMJNB0GwruLiKbBRb2AJzUKFUO9itDw0=	2018-01-17 13:50:43.864778+00	t	admin			abajuradam@yahoo.com	t	t	2017-12-13 20:16:44.947765+00
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: blog_comment; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY blog_comment (id, yazar, yaratilma_tarihi, approved_comment, post_id, yazi) FROM stdin;
+2	Erkan	2017-12-26 16:58:20+00	t	6	Buraya comment içeriği :)
+\.
+
+
+--
+-- Name: blog_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('blog_comment_id_seq', 2, true);
+
+
+--
+-- Data for Name: blog_post; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY blog_post (id, baslik, yazi, yaratilma_tarihi, yayinlanma_tarihi, yazar_id) FROM stdin;
+6	Lorem Ipsum	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sagittis ullamcorper arcu mollis pellentesque. Integer scelerisque rutrum magna. Suspendisse pharetra, elit vitae ultricies rhoncus, nisl augue egestas mi, eu tempor diam libero ac felis. Duis at sapien porta, placerat orci a, pharetra nisl. Sed ac vestibulum ipsum. Aliquam tristique nulla in malesuada volutpat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris sed libero rutrum, consequat erat quis, aliquet libero. Sed vulputate convallis tellus vitae consectetur. Phasellus vitae dolor facilisis, pharetra urna vitae, vestibulum nibh. Donec efficitur pellentesque nulla, a vulputate metus. Maecenas fringilla finibus arcu sit amet pharetra. Donec eu euismod ante. Nullam condimentum, erat at aliquet molestie, ex lorem vulputate magna, vitae vehicula est sem scelerisque nisi. Aliquam ac eleifend tortor. Aliquam condimentum libero ex, eget aliquet arcu ornare sit amet.\r\n\r\nUt pretium, quam sit amet scelerisque sodales, mauris lectus bibendum elit, vel ornare est enim et ipsum. Vestibulum id metus pharetra, luctus orci eu, lacinia erat. Nam efficitur, urna id sodales pretium, ex eros ultricies nunc, sit amet fringilla leo nulla eget ex. Quisque convallis tellus consectetur ex pretium mattis. Nunc massa tortor, fermentum sit amet tincidunt gravida, rutrum eu lectus. Sed consectetur justo sit amet justo lobortis, nec feugiat dui pulvinar. Quisque vel nisl sodales, vulputate magna eu, mattis tortor. Nullam urna felis, rutrum vitae pharetra ac, tempor non diam. Morbi id maximus nulla. Maecenas maximus dictum lacus porta placerat. Ut malesuada massa quam, consequat maximus risus interdum ut. Quisque nibh velit, placerat at nulla non, molestie pellentesque sem.\r\n\r\nProin a vulputate lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus sodales malesuada neque ac tristique. Nunc tincidunt magna eget ipsum ullamcorper lobortis. Vivamus a efficitur quam, ac suscipit enim. Donec ullamcorper, ligula sed lacinia commodo, velit turpis tempus mauris, ac gravida turpis augue eget ex. Sed vitae placerat neque. Vestibulum faucibus, erat sed eleifend ullamcorper, erat erat placerat leo, eu egestas ipsum erat at lorem. Aenean iaculis leo leo, ac lobortis sapien aliquet vel. Pellentesque non erat imperdiet, dictum ante in, tristique dui.\r\n\r\nNulla finibus accumsan erat, vitae scelerisque nisl malesuada sit amet. Sed nulla purus, volutpat ut arcu bibendum, vehicula pharetra nibh. Etiam nisi sem, lobortis malesuada vulputate id, pretium ut mi. Aliquam pulvinar urna at erat cursus sagittis. Pellentesque pulvinar molestie varius. Curabitur efficitur, velit ut ultricies suscipit, lectus nibh ultricies magna, ac eleifend metus diam sit amet nulla. Sed pharetra tincidunt pellentesque. Vestibulum nisi velit, rutrum eu neque non, sollicitudin pharetra purus. Ut id gravida est. Nulla sodales justo ut auctor porta.\r\n\r\nDonec cursus, sapien quis facilisis mollis, ante orci feugiat sem, id lobortis leo velit non tortor. Donec dignissim scelerisque placerat. Nunc a volutpat tortor, auctor viverra ante. Sed nec dapibus neque, non dapibus sem. Nam nec facilisis tortor, non maximus lacus. Nulla ornare maximus nunc at dapibus. Donec in venenatis nisi, ultricies tempor arcu. Quisque mollis, orci vel molestie blandit, odio velit aliquam neque, et tempus lectus ipsum id lacus.	2017-12-25 18:14:56+00	2017-12-25 18:15:53+00	1
+5	Buraya Cansuyla İlgili Bişeyler	asdfghjk	2017-12-25 18:12:09+00	2018-01-17 13:51:14.498471+00	1
+9	aaaaaaaaaaaaaaa	aaaaaaaaaaaaaaaaaaaaaaaa	2018-01-17 13:51:33.037057+00	2018-01-17 13:51:33.037725+00	1
+\.
+
+
+--
+-- Name: blog_post_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('blog_post_id_seq', 9, true);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2017-12-16 11:48:37.724283+00	1	Deneme1	1	[{"added": {}}]	7	1
+2	2017-12-16 11:49:03.426319+00	2	Deneme2	1	[{"added": {}}]	7	1
+3	2017-12-16 11:49:23.612237+00	3	Deneme3	1	[{"added": {}}]	7	1
+4	2017-12-25 18:12:06.332164+00	4	Harika bir gönderi	3		7	1
+5	2017-12-25 18:12:06.337818+00	3	Deneme3	3		7	1
+6	2017-12-25 18:12:06.339553+00	2	Deneme2	3		7	1
+7	2017-12-25 18:12:06.341223+00	1	Deneme1	3		7	1
+8	2017-12-25 18:13:02.006099+00	5	Buraya Cansuyla İlgili Bişeyler	1	[{"added": {}}]	7	1
+9	2017-12-25 18:15:56.441759+00	6	Lorem Ipsum	1	[{"added": {}}]	7	1
+10	2017-12-26 16:59:31.323339+00	2	Buraya comment içeriği :)	1	[{"added": {}}]	8	1
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 10, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	blog	post
+8	blog	comment
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 8, true);
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2017-12-13 20:16:06.987279+00
+2	auth	0001_initial	2017-12-13 20:16:07.066797+00
+3	admin	0001_initial	2017-12-13 20:16:07.100684+00
+4	admin	0002_logentry_remove_auto_add	2017-12-13 20:16:07.113939+00
+5	contenttypes	0002_remove_content_type_name	2017-12-13 20:16:07.163376+00
+6	auth	0002_alter_permission_name_max_length	2017-12-13 20:16:07.170819+00
+7	auth	0003_alter_user_email_max_length	2017-12-13 20:16:07.18277+00
+8	auth	0004_alter_user_username_opts	2017-12-13 20:16:07.194123+00
+9	auth	0005_alter_user_last_login_null	2017-12-13 20:16:07.207202+00
+10	auth	0006_require_contenttypes_0002	2017-12-13 20:16:07.209355+00
+11	auth	0007_alter_validators_add_error_messages	2017-12-13 20:16:07.221491+00
+12	auth	0008_alter_user_username_max_length	2017-12-13 20:16:07.253848+00
+13	auth	0009_alter_user_last_name_max_length	2017-12-13 20:16:07.271541+00
+14	sessions	0001_initial	2017-12-13 20:16:07.286417+00
+15	blog	0001_initial	2017-12-16 11:39:33.054704+00
+16	blog	0002_comment	2017-12-26 00:30:07.211809+00
+17	blog	0003_auto_20171226_1655	2017-12-26 16:56:00.472748+00
+18	blog	0004_auto_20171226_1659	2017-12-26 16:59:23.101468+00
+\.
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: projeuser
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 18, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: projeuser
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+3vvncluv311oozkdp4rgiz5gyhqzz4va	MmIxYTc5M2EwMDg4M2ZhZmRkZDU5ZDM1MDAzYmJiMTc4ODM3ZWE4OTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlZjcyMzU0M2I5ZjljMWU2NmE5OWYzNmI4ODVmMWMzMzQ4Yjk3MjliIn0=	2017-12-27 20:19:10.624568+00
+y9eje4wjs5z6kz18qodq6pf39wrlym9h	ZTMwMzFhZjExODI4ZDk1MGRkYjQ3YzA4YTgwZTZkOWFlZDExNjU4Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZWY3MjM1NDNiOWY5YzFlNjZhOTlmMzZiODg1ZjFjMzM0OGI5NzI5YiIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2018-01-10 23:02:35.402555+00
+1xgg0loouquzv34a70fw8t374pnnxcvv	NGZiNGVhZjg0OGZlM2E5ZWI5MjIwMDdiZTFlMjYzNDI1N2I3NjUyNDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjEiLCJfYXV0aF91c2VyX2hhc2giOiJlZjcyMzU0M2I5ZjljMWU2NmE5OWYzNmI4ODVmMWMzMzQ4Yjk3MjliIn0=	2018-01-31 13:50:43.870858+00
+\.
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: blog_comment_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY blog_comment
+    ADD CONSTRAINT blog_comment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: blog_post_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY blog_post
+    ADD CONSTRAINT blog_post_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: blog_comment_post_id_580e96ef; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX blog_comment_post_id_580e96ef ON blog_comment USING btree (post_id);
+
+
+--
+-- Name: blog_post_yazar_id_5b624c63; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX blog_post_yazar_id_5b624c63 ON blog_post USING btree (yazar_id);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: projeuser
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: blog_comment_post_id_580e96ef_fk_blog_post_id; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY blog_comment
+    ADD CONSTRAINT blog_comment_post_id_580e96ef_fk_blog_post_id FOREIGN KEY (post_id) REFERENCES blog_post(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: blog_post_yazar_id_5b624c63_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY blog_post
+    ADD CONSTRAINT blog_post_yazar_id_5b624c63_fk_auth_user_id FOREIGN KEY (yazar_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6_fk; Type: FK CONSTRAINT; Schema: public; Owner: projeuser
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
